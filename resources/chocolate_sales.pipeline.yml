@@ -1,0 +1,25 @@
+resources:
+  pipelines:
+    chocolate_sales_sdp:
+      name: chocolate_sales_sdp
+      configuration:
+        base_path: /Volumes/${var.catalog}/liebiedieva_bronze/datasets/chocolate_sales_dataset
+        catalog: ${var.catalog}
+        schema: ${var.schema}
+      root_path: "../chocolate_sales_pipeline"
+
+      libraries:
+        - glob:
+            include: ../chocolate_sales_pipeline/transformations/**
+      clusters:
+        - label: default
+          aws_attributes: {}
+          num_workers: 0
+      continuous: false
+      development: "${var.dev_flag}"
+      photon: false
+      edition: ADVANCED
+      channel: CURRENT
+      serverless: false
+      catalog: "${var.catalog}"
+      schema: ${var.schema}

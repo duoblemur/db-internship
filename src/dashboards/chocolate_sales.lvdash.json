@@ -1,0 +1,724 @@
+{
+  "datasets": [
+    {
+      "displayName": "weekly behavior summary dataset",
+      "name": "356294f0",
+      "queryLines": [
+        "SELECT * FROM liebiedieva_gold.agg_weekly_patterns"
+      ]
+    },
+    {
+      "displayName": "store performance dataset",
+      "name": "87c936bf",
+      "queryLines": [
+        "SELECT * FROM agg_store_performance"
+      ]
+    },
+    {
+      "displayName": "Monthly Sales Aggregated Data Summary",
+      "name": "756cded6",
+      "queryLines": [
+        "SELECT * FROM agg_monthly_sales"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "displayName": "Weekly and Monthly",
+      "layout": [
+        {
+          "position": {
+            "height": 8,
+            "width": 6,
+            "x": 0,
+            "y": 0
+          },
+          "widget": {
+            "name": "revenue-over-time",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`category`",
+                      "name": "category"
+                    },
+                    {
+                      "expression": "`month_name`",
+                      "name": "month_name"
+                    },
+                    {
+                      "expression": "SUM(`total_revenue`)",
+                      "name": "sum(total_revenue)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    },
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "color": {
+                  "fieldName": "category",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "x": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "month_name",
+                  "scale": {
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December"
+                      ]
+                    },
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "sum(total_revenue)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Revenue Over Time: product category performance per month"
+              },
+              "version": 3,
+              "widgetType": "line"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 6,
+            "x": 0,
+            "y": 10
+          },
+          "widget": {
+            "name": "2d590d6e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`month_name`",
+                      "name": "month_name"
+                    },
+                    {
+                      "expression": "AVG(`total_revenue`)",
+                      "name": "avg(total_revenue)"
+                    },
+                    {
+                      "expression": "AVG(`total_profit`)",
+                      "name": "avg(total_profit)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    },
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "x": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "month_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "primary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(total_revenue)"
+                      }
+                    ]
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "secondary": {
+                    "fields": [
+                      {
+                        "fieldName": "avg(total_profit)"
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Monthly Profit vs Revenue"
+              },
+              "version": 1,
+              "widgetType": "combo"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 22,
+            "width": 6,
+            "x": 6,
+            "y": 0
+          },
+          "widget": {
+            "name": "store-performance-ranking",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "87c936bf",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`total_revenue`",
+                      "name": "total_revenue"
+                    },
+                    {
+                      "expression": "`store_name`",
+                      "name": "store_name"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    },
+                    {
+                      "expression": "`store_type` IN (`store_type`) OR TRUE"
+                    },
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "x": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "total_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "store_name",
+                  "scale": {
+                    "sort": {
+                      "by": "x-reversed"
+                    },
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Store Performance Ranking"
+              },
+              "version": 3,
+              "widgetType": "bar"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 6,
+            "width": 6,
+            "x": 0,
+            "y": 16
+          },
+          "widget": {
+            "name": "weekly-buying-patterns-store-type",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "356294f0",
+                  "disaggregated": true,
+                  "fields": [
+                    {
+                      "expression": "`avg_daily_revenue`",
+                      "name": "avg_daily_revenue"
+                    },
+                    {
+                      "expression": "`day_name`",
+                      "name": "day_name"
+                    },
+                    {
+                      "expression": "`store_type`",
+                      "name": "store_type"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`store_type` IN (`store_type`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "color": {
+                  "fieldName": "avg_daily_revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "x": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "day_name",
+                  "scale": {
+                    "sort": {
+                      "by": "custom-order",
+                      "orderedValues": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday",
+                        "Saturday",
+                        "Sunday"
+                      ]
+                    },
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "axis": {
+                    "hideTitle": true
+                  },
+                  "fieldName": "store_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Weekly Buying Patterns per Store Type"
+              },
+              "version": 3,
+              "widgetType": "heatmap"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 2,
+            "x": 0,
+            "y": 8
+          },
+          "widget": {
+            "name": "total-revenue",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_revenue`)",
+                      "name": "sum(total_revenue)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    },
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_revenue)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Revenue "
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 2,
+            "x": 2,
+            "y": 8
+          },
+          "widget": {
+            "name": "total-o",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_orders`)",
+                      "name": "sum(total_orders)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    },
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_orders)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Orders"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 2,
+            "x": 4,
+            "y": 8
+          },
+          "widget": {
+            "name": "total-profit",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "SUM(`total_profit`)",
+                      "name": "sum(total_profit)"
+                    }
+                  ],
+                  "filters": [
+                    {
+                      "expression": "`country` IN (`country`) OR TRUE"
+                    },
+                    {
+                      "expression": "`year` IN (`year`) OR TRUE"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(total_profit)"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Total Profit"
+              },
+              "version": 2,
+              "widgetType": "counter"
+            }
+          }
+        }
+      ],
+      "layoutVersion": "GRID_V1",
+      "name": "b418e186",
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "position": {
+            "height": 2,
+            "width": 1,
+            "x": 0,
+            "y": 0
+          },
+          "widget": {
+            "name": "year",
+            "queries": [
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccec581e2fbaac9e460800ecb3_year",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`year`",
+                      "name": "year"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "year_associativity"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_year",
+                "query": {
+                  "datasetName": "87c936bf",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`year`",
+                      "name": "year"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "year_associativity"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "year",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccec581e2fbaac9e460800ecb3_year"
+                  },
+                  {
+                    "fieldName": "year",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_year"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "year"
+              },
+              "version": 2,
+              "widgetType": "filter-multi-select"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 1,
+            "x": 0,
+            "y": 2
+          },
+          "widget": {
+            "name": "country",
+            "queries": [
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccec581e2fbaac9e460800ecb3_country",
+                "query": {
+                  "datasetName": "756cded6",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`country`",
+                      "name": "country"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "country_associativity"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_country",
+                "query": {
+                  "datasetName": "87c936bf",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`country`",
+                      "name": "country"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "country_associativity"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "country",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccec581e2fbaac9e460800ecb3_country"
+                  },
+                  {
+                    "fieldName": "country",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_country"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "country"
+              },
+              "version": 2,
+              "widgetType": "filter-multi-select"
+            }
+          }
+        },
+        {
+          "position": {
+            "height": 2,
+            "width": 1,
+            "x": 0,
+            "y": 4
+          },
+          "widget": {
+            "name": "store-type",
+            "queries": [
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccab6b145b8a8ccb9ac20e0059_store_type",
+                "query": {
+                  "datasetName": "356294f0",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`store_type`",
+                      "name": "store_type"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "store_type_associativity"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_store_type",
+                "query": {
+                  "datasetName": "87c936bf",
+                  "disaggregated": false,
+                  "fields": [
+                    {
+                      "expression": "`store_type`",
+                      "name": "store_type"
+                    },
+                    {
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)",
+                      "name": "store_type_associativity"
+                    }
+                  ]
+                }
+              }
+            ],
+            "spec": {
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "store_type",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccab6b145b8a8ccb9ac20e0059_store_type"
+                  },
+                  {
+                    "fieldName": "store_type",
+                    "queryName": "dashboards/01f131cc96521bf8b327a2bb26e0ba51/datasets/01f131ccc81110c9829deaee0dacdd08_store_type"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "store_type"
+              },
+              "version": 2,
+              "widgetType": "filter-multi-select"
+            }
+          }
+        }
+      ],
+      "layoutVersion": "GRID_V1",
+      "name": "ead55f19",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "applyModeEnabled": false,
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    }
+  }
+}

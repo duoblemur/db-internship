@@ -1,0 +1,9 @@
+resources:
+  dashboards:
+    chocolate_sales:
+      display_name: "Chocolate Sales"
+      warehouse_id: a1f04664c7fcffa4
+      file_path: ../src/dashboards/chocolate_sales.lvdash.json
+      dataset_catalog: ${var.catalog}
+      dataset_schema: liebiedieva_gold
+      

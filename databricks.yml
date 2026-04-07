@@ -1,0 +1,45 @@
+bundle:
+  name: my_project
+  uuid: 2ac4c92b-9da5-4c15-9731-c134acf921cf
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: The catalog to use
+    default: dbr_dev
+  schema:
+    description: The schema to use
+    default: liebiedieva_bronze
+  dev_flag:
+    default: true
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405605185991044.4.azuredatabricks.net
+    variables:
+      catalog: dbr_dev
+      dev_flag: false
+
+
+  test:
+    mode: production
+    workspace:
+      host: https://adb-7405605185991044.4.azuredatabricks.net
+      # We explicitly deploy to /Workspace/Users/valeriialiebiedie179@softserve.academy to make sure we only have a single copy.
+      root_path: /Workspace/Shared/sales_bundle/.bundle/${bundle.name}/${bundle.target}
+    variables:
+      catalog: liebiedieva_test
+    presets:
+      name_prefix: '[testing] '
+    permissions:
+      - group_name: data_engineers
+        level: CAN_MANAGE
+      - service_principal_name: your-service-principal-name # update with your service principal name
+        level: CAN_MANAGE
+    run_as:
+      service_principal_name: your-service-principal-name
