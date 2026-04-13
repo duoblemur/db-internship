@@ -33,7 +33,7 @@ resources:
 
       email_notifications:
         on_failure:
-          - ${workspace.current_user.userName}
+          - ${var.user_email}
 
       permissions:
         - level: CAN_MANAGE_RUN
