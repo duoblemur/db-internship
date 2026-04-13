@@ -14,6 +14,9 @@ variables:
     default: liebiedieva_bronze
   dev_flag:
     default: false
+  user_email:
+    description: Email for alerts
+    default: ${workspace.current_user.userName}
 
 targets:
   dev:
@@ -21,7 +24,7 @@ targets:
     default: true
     workspace:
       host: https://adb-7405605185991044.4.azuredatabricks.net
-      root_path: /Workspace/Users/${workspace.current_user.userName}/lab7/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${var.user_email}/lab7/${bundle.name}/${bundle.target}
     variables:
       catalog: dbr_dev
       dev_flag: true
@@ -30,7 +33,7 @@ targets:
     mode: production
     workspace:
       host: https://adb-7405605185991044.4.azuredatabricks.net
-      root_path: /Workspace/Users/${workspace.current_user.userName}/lab7/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${var.user_email}/lab7/${bundle.name}/${bundle.target}
     variables:
       catalog: liebiedieva_test
     presets:

@@ -19,7 +19,7 @@ resources:
           notify_on_ok: true
           retrigger_seconds: 86400
           subscriptions:
-            - user_email: ${workspace.current_user.userName}
+            - user_email: ${var.user_email}
  
       schedule:
         quartz_cron_schedule: "0 30 8 * * ?"  # 08:30 UTC daily

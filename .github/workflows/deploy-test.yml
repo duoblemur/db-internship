@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - "databricks.yml"
-      - "resources/**"
-      - "src/**"
 
 jobs:
   deploy:
@@ -20,6 +16,7 @@ jobs:
       DATABRICKS_HOST: https://adb-7405605185991044.4.azuredatabricks.net
       DATABRICKS_CLIENT_ID: 58b448c4-3ec2-4e48-b986-de61521b8d89
       DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      DATABRICKS_BUNDLE_VAR_user_email: ${{ secrets.DATABRICKS_USER_EMAIL }}
 
     steps:
       - name: Checkout repository
@@ -33,7 +30,7 @@ jobs:
 
       - name: Run pipeline congigurations workflow (pipeline + rls/cls + policies)
         run: |
-          databricks bundle run chocolate_deployment_job \
+          databricks bundle run Chocolate_Sales_Setup_Workflow \
             --target test \
             --wait
 
