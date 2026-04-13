@@ -1,0 +1,42 @@
+name: Deploy to test
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "databricks.yml"
+      - "resources/**"
+      - "src/**"
+
+jobs:
+  deploy:
+    name: Deploy bundle to test
+    runs-on: ubuntu-latest
+    environment: TEST
+
+    env:
+      DATABRICKS_AUTH_TYPE: oauth-m2m
+      DATABRICKS_HOST: https://adb-7405605185991044.4.azuredatabricks.net
+      DATABRICKS_CLIENT_ID: 58b448c4-3ec2-4e48-b986-de61521b8d89
+      DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Deploy bundle to test
+        run: databricks bundle deploy --target test
+
+      - name: Run pipeline congigurations workflow (pipeline + rls/cls + policies)
+        run: |
+          databricks bundle run chocolate_deployment_job \
+            --target test \
+            --wait
+
+      - name: Print deployment summary
+        if: always()   # run even if previous steps failed, for debugging
+        run: databricks bundle summary --target test
