@@ -24,6 +24,7 @@ jobs:
       DATABRICKS_HOST: https://adb-7405605185991044.4.azuredatabricks.net
       DATABRICKS_CLIENT_ID: 58b448c4-3ec2-4e48-b986-de61521b8d89
       DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+      BUNDLE_VAR_user_email: ${{ secrets.DATABRICKS_USER_EMAIL }}
 
     steps:
       - name: Checkout repository
