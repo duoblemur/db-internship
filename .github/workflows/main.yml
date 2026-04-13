@@ -1,0 +1,39 @@
+name: Validate bundle
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      # Only run when bundle-relevant files change.
+      # Avoids triggering validation for README edits etc.
+      - "databricks.yml"
+      - "resources/**"
+      - "src/**"
+      - ".github/workflows/**"
+
+jobs:
+  validate:
+    name: Bundle validate (test target)
+    runs-on: ubuntu-latest
+
+    environment: TEST
+
+    env:
+      DATABRICKS_AUTH_TYPE: oauth-m2m
+      DATABRICKS_HOST: https://adb-7405605185991044.4.azuredatabricks.net
+      DATABRICKS_CLIENT_ID: 58b448c4-3ec2-4e48-b986-de61521b8d89
+      DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+        
+      - name: Who is logged in?
+        run: databricks current-user me
+
+      - name: Validate bundle against test target
+        run: databricks bundle validate --target test
