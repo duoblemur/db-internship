@@ -6,11 +6,11 @@ resources:
         base_path: /Volumes/${var.catalog}/liebiedieva_bronze/datasets/chocolate_sales_dataset
         catalog: ${var.catalog}
         schema: ${var.schema}
-      root_path: "../chocolate_sales_pipeline"
+      root_path: "../src/chocolate_sales_pipeline"
 
       libraries:
         - glob:
-            include: ../chocolate_sales_pipeline/transformations/**
+            include: ../src/chocolate_sales_pipeline/transformations/**
       clusters:
         - label: default
           aws_attributes: {}

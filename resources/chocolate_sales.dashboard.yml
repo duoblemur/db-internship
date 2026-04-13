@@ -1,7 +1,7 @@
 resources:
   dashboards:
     chocolate_sales:
-      display_name: "Chocolate Sales"
+      display_name: "Chocolate Sales Dashboard"
       warehouse_id: a1f04664c7fcffa4
       file_path: ../src/dashboards/chocolate_sales.lvdash.json
       dataset_catalog: ${var.catalog}

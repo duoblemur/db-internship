@@ -1,0 +1,40 @@
+resources:
+  jobs:
+    Chocolate_Sales_Setup_Workflow:
+      name: Chocolate_Sales_Setup_Workflow
+
+      tasks:
+        - task_key: pipeline_update
+          description: "Trigger a full pipeline update run"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.chocolate_sales_sdp.id}
+            full_refresh: false 
+
+
+        - task_key: apply_governance
+          description: "Create masking/filter UDFs, apply column and table tags"
+          depends_on:
+            - task_key: pipeline_update
+          notebook_task:
+            notebook_path: ../src/chocolate_sales_workflow/01_udfs_and_tags.ipynb
+            base_parameters:
+              catalog: "${var.catalog}" 
+          existing_cluster_id: 0211-145306-i704nq9e
+
+        - task_key: apply_policies
+          description: "Create or replace ABAC row filter and column mask policies"
+          depends_on:
+            - task_key: apply_governance
+          notebook_task:
+            notebook_path: ../src/chocolate_sales_workflow/02_abac_policies.ipynb
+            base_parameters:
+              catalog: "${var.catalog}"
+          existing_cluster_id: 0211-145306-i704nq9e
+
+      email_notifications:
+        on_failure:
+          - ${workspace.current_user.userName}
+
+      permissions:
+        - level: CAN_MANAGE_RUN
+          group_name: data_engineers
