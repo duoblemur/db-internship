@@ -6,7 +6,6 @@ from pyspark.sql import functions as F
 # ---------------------------------------------------------------------------
 
 SOURCE_BASE = spark.conf.get("base_path")
-# SOURCE_BASE = "/Volumes/dbr_dev/liebiedieva_bronze/datasets/chocolate_sales_dataset"
  
 SALES_PATH    = f"{SOURCE_BASE}/sales.csv"
 PRODUCTS_PATH = f"{SOURCE_BASE}/products.csv"

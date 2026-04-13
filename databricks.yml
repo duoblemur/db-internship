@@ -21,6 +21,7 @@ targets:
     default: true
     workspace:
       host: https://adb-7405605185991044.4.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/lab7/${bundle.name}/${bundle.target}
     variables:
       catalog: dbr_dev
       dev_flag: false
@@ -31,7 +32,7 @@ targets:
     workspace:
       host: https://adb-7405605185991044.4.azuredatabricks.net
       # We explicitly deploy to /Workspace/Users/valeriialiebiedie179@softserve.academy to make sure we only have a single copy.
-      root_path: /Workspace/Shared/sales_bundle/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/lab7/${bundle.name}/${bundle.target}
     variables:
       catalog: liebiedieva_test
     presets:
@@ -39,7 +40,7 @@ targets:
     permissions:
       - group_name: data_engineers
         level: CAN_MANAGE
-      - service_principal_name: your-service-principal-name # update with your service principal name
+      - service_principal_name: 58b448c4-3ec2-4e48-b986-de61521b8d89
         level: CAN_MANAGE
     run_as:
-      service_principal_name: your-service-principal-name
+      service_principal_name: 58b448c4-3ec2-4e48-b986-de61521b8d89
