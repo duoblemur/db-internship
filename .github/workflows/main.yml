@@ -1,0 +1,39 @@
+name: Validate bundle
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      # Only run when bundle-relevant files change.
+      # Avoids triggering validation for README edits etc.
+      - "databricks.yml"
+      - "resources/**"
+      - "src/**"
+      - ".github/workflows/**"
+
+permissions:
+  id-token: write    # required for OIDC token exchange
+  contents: read
+
+jobs:
+  validate:
+    name: Bundle validate (test target)
+    runs-on: ubuntu-latest
+
+    environment: test
+
+    env:
+      DATABRICKS_AUTH_TYPE: github-oidc
+      DATABRICKS_HOST: https://adb-7405605185991044.4.azuredatabricks.net
+      DATABRICKS_CLIENT_ID: 58b448c4-3ec2-4e48-b986-de61521b8d89
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate bundle against test target
+        run: databricks bundle validate --target test
