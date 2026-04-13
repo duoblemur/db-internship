@@ -26,12 +26,10 @@ targets:
       catalog: dbr_dev
       dev_flag: false
 
-
   test:
     mode: production
     workspace:
       host: https://adb-7405605185991044.4.azuredatabricks.net
-      # We explicitly deploy to /Workspace/Users/valeriialiebiedie179@softserve.academy to make sure we only have a single copy.
       root_path: /Workspace/Users/${workspace.current_user.userName}/lab7/${bundle.name}/${bundle.target}
     variables:
       catalog: liebiedieva_test
