@@ -16,7 +16,7 @@ variables:
     default: false
   user_email:
     description: Email for alerts
-    default: ${workspace.current_user.userName}
+    default: ${workspace.current_user.userName} #will be overwritten during deployment to test, since service principal is used
 
 targets:
   dev:
