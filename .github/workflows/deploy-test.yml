@@ -21,6 +21,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+ 
+      - name: Install dependencies
+        run: pip install requests
 
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
@@ -30,8 +38,7 @@ jobs:
 
       - name: Run pipeline congigurations workflow (pipeline + rls/cls + policies)
         run: |
-          databricks bundle run Chocolate_Sales_Setup_Workflow \
-            --target test
+          python main.py
 
       - name: Print deployment summary
         if: always()   # run even if previous steps failed, for debugging

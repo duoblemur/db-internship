@@ -16,20 +16,20 @@ resources:
           depends_on:
             - task_key: pipeline_update
           notebook_task:
-            notebook_path: ../src/chocolate_sales_workflow/01_udfs_and_tags.ipynb
+            notebook_path: ../src/chocolate_sales_workflow/01_udfs_and_tags.py
             base_parameters:
               catalog: "${var.catalog}" 
-          existing_cluster_id: 0211-145306-i704nq9e
+          existing_cluster_id: ${var.cluster_id}
 
         - task_key: apply_policies
           description: "Create or replace ABAC row filter and column mask policies"
           depends_on:
             - task_key: apply_governance
           notebook_task:
-            notebook_path: ../src/chocolate_sales_workflow/02_abac_policies.ipynb
+            notebook_path: ../src/chocolate_sales_workflow/02_abac_policies.py
             base_parameters:
               catalog: "${var.catalog}"
-          existing_cluster_id: 0211-145306-i704nq9e
+          existing_cluster_id: ${var.cluster_id}
 
       email_notifications:
         on_failure:

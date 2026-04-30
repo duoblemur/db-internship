@@ -17,6 +17,9 @@ variables:
   user_email:
     description: Email for alerts
     default: ${workspace.current_user.userName} #will be overwritten during deployment to test, since service principal is used
+  cluster_id:
+    description: Existing all-purpose cluster ID for notebook tasks # In CI this is overridden at run-time by run_job.py, so the persisted job definition always has a valid fallback.
+    default: 0211-145306-i704nq9e
 
 targets:
   dev:
