@@ -24,10 +24,18 @@ def create_cluster():
 
     payload = {
         "cluster_name": "liebiedieva-api-cluster",
-        "spark_version": "13.3.x-scala2.12",
-        "node_type_id": "Standard_DS3_v2",
-        "num_workers": 2,
-        "autotermination_minutes": 30,
+        "spark_version": "17.3.x-scala2.13",
+        "node_type_id": "Standard_F4",
+        "num_workers": 0,
+          "is_single_node": True,
+        "spark_conf": {
+            "spark.databricks.cluster.profile": "singleNode",
+            "spark.master": "local[*]"
+        },
+        "custom_tags": {
+            "ResourceClass": "SingleNode"
+        },
+        "autotermination_minutes": 20,
         "data_security_mode": "SINGLE_USER"
     }
 
