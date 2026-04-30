@@ -9,11 +9,11 @@ from databricks_api import (
     trigger_pipeline
 )
 
+# functions to submit a single notebook run or to refresh a pipeline are also added, just were not run here
 
 def main():
-    print("Starting full Databricks automation workflow...")
+    print("Starting Databricks automation workflow...")
 
-    # Example values — replace with your real IDs
     JOB_ID = 223333185558640
 
     print("\nStep 1: Creating cluster via REST API")
@@ -30,7 +30,7 @@ def main():
 
     print(f"\nFinal Job Status: {final_status}")
 
-    print("\nAutomation workflow completed successfully.")
+    print("\nAutomation workflow completed successfully!")
 
 
 if __name__ == "__main__":

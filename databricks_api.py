@@ -21,11 +21,18 @@ def create_cluster():
     """
 
     url = f"{DATABRICKS_HOST}/api/2.0/clusters/create"
-    print(url)
+
     payload = {
         "cluster_name": "liebiedieva-api-clusters",
-        "spark_version": "13.3.x-scala2.12",
+        "spark_version": "15.4.x-scala2.12",
+        "spark_conf": {
+        "spark.databricks.cluster.profile": "singleNode",
+        "spark.master": "local[*]"
+        },
         "node_type_id": "Standard_F4",
+        "custom_tags": {
+            "ResourceClass": "SingleNode"
+        },
         "num_workers": 0,
         "autotermination_minutes": 20,
         "data_security_mode": "SINGLE_USER"
@@ -178,7 +185,7 @@ def monitor_run(run_id):
             "SKIPPED",
             "INTERNAL_ERROR"
         ]:
-            print("Job finished.")
+            print("Job finished")
             return result_state
 
         time.sleep(15)
