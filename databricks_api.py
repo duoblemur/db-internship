@@ -21,20 +21,14 @@ def create_cluster():
     """
 
     url = f"{DATABRICKS_HOST}/api/2.0/clusters/create"
-
+    print(url)
     payload = {
         "cluster_name": "liebiedieva-api-clusters",
-        "spark_version": "17.3.x-scala2.13",
+        "spark_version": "13.3.x-scala2.12",
         "node_type_id": "Standard_F4",
-        "spark_conf": {
-            "spark.databricks.cluster.profile": "singleNode",
-            "spark.master": "local[*]"
-        },
         "num_workers": 0,
-        "custom_tags": {
-            "ResourceClass": "SingleNode"
-        },
-        "autotermination_minutes": 20
+        "autotermination_minutes": 20,
+        "data_security_mode": "SINGLE_USER"
     }
 
     response = requests.post(
