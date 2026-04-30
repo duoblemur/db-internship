@@ -22,31 +22,13 @@ def create_cluster():
 
     url = f"{DATABRICKS_HOST}/api/2.0/clusters/create"
 
-
-    {
-    "cluster_name": "tokariev_api_cluster",
-    "spark_version": "17.3.x-scala2.13",
-    "spark_conf": {
-        "spark.master": "local[*]"
-    },
-    "node_type_id": "Standard_F4",
-    "custom_tags": {
-        "ResourceClass": "singleNode",
-        "source": "api"
-    },
-    "autotermination_minutes": 15,
-    "single_user_name": "0fbc6566-282b-47bf-9122-11f99addc705",
-    "data_security_mode": "SINGLE_USER",
-    "runtime_engine": "STANDARD",
-    "num_workers": 0
-}
     payload = {
         "cluster_name": "liebiedieva-api-clusters",
         "spark_version": "17.3.x-scala2.13",
         "node_type_id": "Standard_F4",
         "spark_conf": {
-        "spark.databricks.cluster.profile": "singleNode",
-        "spark.master": "local[*]"
+            "spark.databricks.cluster.profile": "singleNode",
+            "spark.master": "local[*]"
         },
         "num_workers": 0,
         "custom_tags": {
