@@ -16,7 +16,7 @@ resources:
           depends_on:
             - task_key: pipeline_update
           notebook_task:
-            notebook_path: ../src/chocolate_sales_workflow/01_udfs_and_tags.py
+            notebook_path: ../src/chocolate_sales_workflow/01_udfs_and_tags.ipynb
             base_parameters:
               catalog: "${var.catalog}" 
           existing_cluster_id: ${var.cluster_id}
@@ -26,7 +26,7 @@ resources:
           depends_on:
             - task_key: apply_governance
           notebook_task:
-            notebook_path: ../src/chocolate_sales_workflow/02_abac_policies.py
+            notebook_path: ../src/chocolate_sales_workflow/02_abac_policies.ipynb
             base_parameters:
               catalog: "${var.catalog}"
           existing_cluster_id: ${var.cluster_id}
